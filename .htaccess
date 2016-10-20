@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} !^localhost/lampangfood$
+RewriteRule ^(en|th)/(.*)$  $2?language=$1 [L,QSA]
+DirectoryIndex index.html index.php
+

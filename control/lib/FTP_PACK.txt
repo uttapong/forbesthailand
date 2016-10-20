@@ -1,0 +1,4 @@
+File Update
+gm2000magazine/control/lib/system_table.php
+gm2000magazine/intro-detail.php
+
