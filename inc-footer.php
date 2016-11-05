@@ -248,7 +248,7 @@ carousel_footer.on('change.owl.carousel', function(property) {
 //ini_set('display_errors', 1);
 //$Conn->disconnect();
 
-mysql_close();
+//mysqli_close($Conn);
 if ($Conn) {
    unset($Conn);
 }

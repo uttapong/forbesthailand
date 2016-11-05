@@ -4,7 +4,8 @@
 	session_start();
 		
 	$docsRoot = getenv("DOCUMENT_ROOT");
-	$docsRoot = ereg_replace('\/$', '', $docsRoot) . "";
+	// $docsRoot = ereg_replace('\/$', '', $docsRoot) . "";
+	$docsRoot = preg_replace('/\/$/', '', $docsRoot) . "";
 	define('_DOCUMENT_ROOT_', $docsRoot);
 	
 		

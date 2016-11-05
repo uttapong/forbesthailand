@@ -24,12 +24,12 @@
        } 
 	   
 	   	function  _connect() {
-			$this->Conn = mysql_connect($this->var_host,$this->var_username,$this->var_password);
-			mysql_select_db($this->var_dbname);
+			$this->Conn = mysqli_connect($this->var_host,$this->var_username,$this->var_password);
+			mysqli_select_db($this->Conn,$this->var_dbname);
 		}
 		
 		function _execute($sql) {
-			mysql_query($sql);
+			mysqli_query($this->Conn,$sql);
 		}
 
 	   	function _setDatabaseCharset($encoding) {
@@ -38,7 +38,7 @@
    
    
    	 function execute($sql) {
-			mysql_query($sql);
+			mysqli_query($this->Conn,$sql);
 		}
    
        function query($sql,$page=0,$pageSize=0,$type_c=0)  
@@ -50,15 +50,13 @@
 
 					if ($type_c==0){
 						$sql_c = "select count(*) CNT from (".$sql.") tb";
-					
-					
-						$result=mysql_query($sql_c); 
-						$rs=mysql_fetch_array($result);
+						$result=mysqli_query($this->Conn,$sql_c); 
+						$rs=mysqli_fetch_array($result);
 						$num=$rs['CNT'];
 						
 					}else{
-						$result=mysql_query($sql);  
-						 $num=mysql_num_rows($result);  
+						$result=mysqli_query($this->Conn,$sql);  
+						 $num=mysqli_num_rows($result);  
 						
 					}
 					
@@ -72,21 +70,23 @@
 				
 				
 			 }
-             $result=mysql_query($sql);  
+             $result=mysqli_query($this->Conn,$sql);  
 			$this->var_result = $result;
 			
 			
 			if($page==0){
-				$this->var_totalRow = mysql_num_rows($result);
+				$this->var_totalRow = mysqli_num_rows($result);
 			}
 			
-			$this->var_rowCount = mysql_num_rows($result);
+			$this->var_rowCount = mysqli_num_rows($result);
 	
              return $result;  
        }  
 	   
 	   	function getResult() {
-			while ($Row = mysql_fetch_array($this->var_result)) {
+	   		$RowNumber=0;
+	   		$Rs=array();
+			while ($Row = mysqli_fetch_array($this->var_result)) {
 				$Rs[] = array_merge(array("ROWNUM" => $RowNumber++),(array)$Row);
 			}
 			
